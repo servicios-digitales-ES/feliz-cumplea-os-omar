@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0a0809">
+<title>Feliz cumpleaños 45, Omar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0809; --ink:#f5eee2; --mut:#b9ad9a; --gold:#e9bd68; --glow:233,189,104;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden;-webkit-text-size-adjust:100%}
+body{font:400 17px/1.55 var(--sans);-webkit-tap-highlight-color:transparent;touch-action:pan-y}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* Barra de progreso */
+.prog{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 10px);left:14px;right:14px;display:flex;gap:5px}
+.prog i{flex:1;height:3px;border-radius:2px;background:rgba(245,238,226,.18);transition:background .4s}
+.prog i.on{background:var(--gold)}
+
+/* Escena */
+.slide{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.6dvh,24px);
+  padding:calc(env(safe-area-inset-top,0px) + 34px) 26px calc(env(safe-area-inset-bottom,0px) + 104px);text-align:center;
+  opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s;
+  background:radial-gradient(120% 70% at 50% -8%,rgba(var(--glow),.30),transparent 62%),var(--bg)}
+.slide.on{opacity:1;visibility:visible;transition:opacity .5s}
+.slide>*{max-width:440px}
+
+/* Tipografía */
+h1,h2,.q{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.14}
+.q{font-style:italic;font-weight:400;font-size:clamp(26px,7.4vw,38px);text-wrap:balance}
+.q.big{font-size:clamp(30px,8.6vw,44px)}
+.txt{font-size:clamp(17px,4.6vw,20px);color:var(--ink);text-wrap:balance}
+.small{font-size:15px;color:var(--mut);font-style:italic;font-family:var(--serif)}
+.en{font-family:var(--serif);font-weight:700;font-size:clamp(20px,5.6vw,26px);color:var(--gold)}
+
+/* Marcos */
+.arch{width:min(70vw,290px);height:min(46dvh,390px);border-radius:999px 999px 22px 22px;overflow:hidden;
+  outline:1px solid rgba(var(--glow),.5);outline-offset:8px;box-shadow:0 24px 60px -20px rgba(var(--glow),.45);background:#000}
+.arch img,.arch video{display:block;width:100%;height:100%;object-fit:cover}
+.wide{width:min(86vw,420px);border-radius:20px;overflow:hidden;outline:1px solid rgba(var(--glow),.5);outline-offset:8px;box-shadow:0 24px 60px -20px rgba(var(--glow),.45)}
+.wide img{display:block;width:100%;height:auto}
+.free{width:min(78vw,340px);-webkit-mask-image:radial-gradient(closest-side,#000 74%,transparent);mask-image:radial-gradient(closest-side,#000 74%,transparent)}
+.free video{display:block;width:100%;height:auto}
+
+/* Portada */
+.s-cover{--glow:233,189,104}
+.num{font-family:var(--serif);font-weight:700;font-size:clamp(120px,40vw,190px);line-height:.9;letter-spacing:-.04em;
+  background:linear-gradient(180deg,#fff3d1,var(--gold) 55%,#a9792a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.s-cover.on .num{animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+.vol{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid rgba(var(--glow),.5);color:var(--gold);font-size:15px;font-weight:500}
+
+/* Cierre */
+.cake{font-size:clamp(100px,32vw,150px);line-height:1;filter:drop-shadow(0 0 32px rgba(var(--glow),.55))}
+.s-end.on .cake{animation:bob 3.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+
+/* Controles */
+.nav{position:fixed;z-index:6;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);display:flex;justify-content:center;align-items:center;gap:12px;padding:0 20px}
+.btn{min-height:50px;padding:0 28px;border-radius:999px;font-weight:700;font-size:16px}
+.next{background:var(--gold);color:#1a1205;min-width:170px}
+.ghost{width:50px;padding:0;border:1px solid rgba(245,238,226,.28);font-size:20px;display:grid;place-items:center}
+.ghost[hidden]{display:none}
+.ghost[disabled]{opacity:.3;cursor:default}
+
+@media (max-height:640px){.arch{height:40dvh}.num{font-size:110px}.cake{font-size:96px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog" aria-hidden="true"></div>
+
+<!-- 1. PORTADA -->
+<section class="slide s-cover" data-glow="233,189,104">
+  <div class="num" aria-hidden="true">45</div>
+  <h1 class="q big">Feliz cumpleaños número 45</h1>
+  <p class="txt">Que la vida te siga dando motivos para sonreír y para vivir lo que disfrutas. Esperamos que te vaya bien.</p>
+  <p class="vol"><span aria-hidden="true">🔊</span> Súbele el volumen a tu celular</p>
+</section>
+
+<!-- 2. LAS JARRAS BRINDANDO -->
+<section class="slide" data-glow="240,170,70" data-clink="1">
+  <h2 class="q big">“Lo que te gusta”</h2>
+  <div class="wide"><img src="assets/brindis.gif" alt="Dos jarras de cerveza chocando en un brindis"></div>
+  <p class="en">Por otros 45 más</p>
+</section>
+
+<!-- 3. CRISTIANO RONALDO -->
+<section class="slide" data-glow="235,235,235" data-audio="assets/cr7.m4a">
+  <div class="free"><video src="assets/cr7.mp4" muted loop playsinline preload="auto" aria-label="Cristiano Ronaldo celebrando con su SIUUU"></video></div>
+  <h2 class="q big">Como Cristiano, siempre de pie</h2>
+</section>
+
+<!-- 4. BUNBURY -->
+<section class="slide" data-glow="205,50,60" data-audio="assets/bunbury.m4a">
+  <div class="arch"><img src="assets/bunbury.jpg" alt="Bunbury cantando en el escenario" style="object-position:50% 30%"></div>
+  <p class="small">con la misma actitud</p>
+  <h2 class="q">“Y corregir tu mundo, con una canción”</h2>
+</section>
+
+<!-- 5. ARJONA -->
+<section class="slide" data-glow="120,150,190" data-audio="assets/arjona.m4a">
+  <div class="arch"><img src="assets/arjona.jpg" alt="Arjona cantando sentado en un banco" style="object-position:50% 35%"></div>
+  <h2 class="q">“No le quites años a tu vida, ponle vida a los años”</h2>
+</section>
+
+<!-- 6. EL FAN NÚMERO UNO -->
+<section class="slide" data-glow="210,70,60" data-audio="assets/sebas.m4a">
+  <div class="arch"><video src="assets/sebas.mp4" muted loop playsinline preload="auto" aria-label="Tu hijo sonriendo" style="object-position:50% 30%"></video></div>
+  <h2 class="q big">Feliz cumpleaños, papá.</h2>
+</section>
+
+<!-- 7. FREDDIE MERCURY -->
+<section class="slide" data-glow="240,200,80" data-audio="assets/freddie.m4a">
+  <div class="arch"><img src="assets/freddie.jpg" alt="Freddie Mercury cantando con el micrófono" style="object-position:50% 25%"></div>
+  <h2 class="q">“No me detengan ahora”</h2>
+  <p class="txt">Que nada te detenga</p>
+  <p class="en">“There’s no stopping me”</p>
+</section>
+
+<!-- 8. CIERRE FINAL -->
+<section class="slide s-end" data-glow="233,189,104">
+  <p class="txt">Espero te guste este pequeño detalle. Feliz cumpleaños.</p>
+  <div class="cake" role="img" aria-label="Pastel de cumpleaños">🎂</div>
+  <h2 class="q big">Feliz cumpleaños 45, Omar</h2>
+</section>
+
+<div class="nav">
+  <button class="btn ghost" id="back" aria-label="Anterior" disabled>‹</button>
+  <button class="btn next" id="next">Abrir tarjeta</button>
+  <button class="btn ghost" id="replay" aria-label="Repetir sonido" hidden>🔊</button>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var prog=document.getElementById('prog'), nextB=document.getElementById('next'),
+      backB=document.getElementById('back'), replayB=document.getElementById('replay');
+  var cur=-1, unlocked=false, ctx=null, audios=[];
+
+  slides.forEach(function(sl){var s=document.createElement('i');prog.appendChild(s);var g=sl.getAttribute('data-glow');if(g)sl.style.setProperty('--glow',g)});
+
+  /* Audio por escena */
+  slides.forEach(function(sl,i){
+    var src=sl.getAttribute('data-audio');
+    if(src){var a=new Audio(src);a.preload='auto';audios[i]=a}
+  });
+
+  /* Brindis: sonido de vidrio sintetizado (no hace falta archivo) */
+  function hit(t,vol){
+    [2350,3140,4260,5480].forEach(function(f,k){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f*(1+Math.random()*.01);
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(vol/(k+1.4),t+.004);
+      g.gain.exponentialRampToValueAtTime(.0001,t+.9-k*.12);
+      o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+1);
+    });
+  }
+  function clink(){
+    if(!ctx)return;
+    if(ctx.state==='suspended')ctx.resume();
+    var t=ctx.currentTime+.02;hit(t,.28);hit(t+.11,.18);
+  }
+
+  /* Desbloquear audio con el primer toque (iPhone/Android lo exigen) */
+  function unlock(){
+    if(unlocked)return;unlocked=true;
+    try{var AC=window.AudioContext||window.webkitAudioContext;ctx=new AC();ctx.resume()}catch(e){}
+    audios.forEach(function(a){
+      if(!a)return;a.muted=true;
+      var p=a.play();
+      var done=function(){a.pause();a.currentTime=0;a.muted=false};
+      if(p&&p.then){p.then(done).catch(function(){a.muted=false})}else{done()}
+    });
+  }
+
+  function stopAll(){
+    audios.forEach(function(a){if(a){a.pause();a.currentTime=0}});
+    slides.forEach(function(s){[].forEach.call(s.querySelectorAll('video'),function(v){v.pause()})});
+  }
+
+  function playCurrent(){
+    var sl=slides[cur],a=audios[cur];
+    if(a){a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(function(){})}
+    if(sl.hasAttribute('data-clink'))clink();
+  }
+
+  function go(n){
+    if(n<0||n>=slides.length||n===cur)return;
+    stopAll();
+    cur=n;
+    slides.forEach(function(s,i){s.classList.toggle('on',i===n)});
+    [].forEach.call(prog.children,function(b,i){b.classList.toggle('on',i<=n)});
+    [].forEach.call(slides[n].querySelectorAll('video'),function(v){v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})});
+    if(n>0)playCurrent();
+    backB.disabled=n===0;
+    var hasSound=!!audios[n]||slides[n].hasAttribute('data-clink');
+    replayB.hidden=!hasSound;
+    nextB.textContent=n===0?'Abrir tarjeta':(n===slides.length-1?'Volver a empezar':'Siguiente');
+  }
+
+  function next(){
+    unlock();
+    if(cur===slides.length-1){go(0)}else{go(cur+1)}
+  }
+
+  nextB.addEventListener('click',next);
+  backB.addEventListener('click',function(){unlock();go(cur-1)});
+  replayB.addEventListener('click',function(){unlock();playCurrent()});
+
+  /* Deslizar y teclado */
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;
+    if(Math.abs(dx)<60)return;
+    unlock();
+    if(dx<0&&cur<slides.length-1)go(cur+1);
+    else if(dx>0)go(cur-1);
+  },{passive:true});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){unlock();if(cur<slides.length-1)go(cur+1)}
+    if(e.key==='ArrowLeft'){unlock();go(cur-1)}
+  });
+
+  go(0);
+})();
+</script>
+</body>
+</html>
